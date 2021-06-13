@@ -1,10 +1,11 @@
 
 
 //Canvas Constants
-const canvasWidth = 500;
-const canvasHeight = 500;
-
-const spacing = 5
+const canvasWidth = 1000;
+const canvasHeight = 1000;
+const spacing = 20
+const isPoint = false
+const canVisitMultipleTimes = true
 
 const framePerSecond = 60;
 
@@ -15,24 +16,27 @@ function setup() {
     background(51);
     walker = new Walker({
         maxHeight: canvasHeight / spacing,
-        maxWidth: canvasWidth / spacing
+        maxWidth: canvasWidth / spacing,
+        canVisitMultipleTimes
     })
     frameRate(framePerSecond);
 }
 
 function draw() {
 
-    /*stroke(255);
-    strokeWeight(spacing * 0.5);
-    point(walker.currentPos.x * spacing, walker.currentPos.y * spacing);*/
-
-
-    strokeWeight(2);
-    stroke(255);
+    strokeWeight(0.3 * spacing);
+    stroke(255, 100);
     beginShape();
-    vertex(walker.currentPos.x * spacing, walker.currentPos.y * spacing);
+    if (!isPoint) {
+        vertex(walker.currentPos.x * spacing, walker.currentPos.y * spacing);
+    }
     const isStuck = walker.nextMove();
-    vertex(walker.currentPos.x * spacing, walker.currentPos.y * spacing);
+    stroke(255, 100);
+    if (isPoint) {
+        point(walker.currentPos.x * spacing, walker.currentPos.y * spacing)
+    } else {
+        vertex(walker.currentPos.x * spacing, walker.currentPos.y * spacing);
+    }
     endShape();
 
     if (isStuck) {
