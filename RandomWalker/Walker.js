@@ -1,11 +1,11 @@
 
 class Walker {
-    constructor({ maxHeight, maxWidth, canVisitMultipleTimes = true }) {
+    constructor({ maxHeight, maxWidth, canVisitMultipleTimes = true, canGoOnLastPos = true }) {
         this.maxHeight = maxHeight
         this.maxWidth = maxWidth
         this.canVisitMultipleTimes = canVisitMultipleTimes
+        this.canGoOnLastPos = canGoOnLastPos
         this.path = []
-        this.currentPos = new Point({ x: this.maxHeight / 2, y: this.maxWidth / 2 })
 
         this.grid = []
         for (let i = 0; i < this.maxHeight; i++) {
@@ -19,6 +19,9 @@ class Walker {
                 })
             }
         }
+        this.currentPos = this.grid[Math.floor(this.maxHeight / 2)][Math.floor(this.maxWidth / 2)]
+        this.currentPos.visited = true
+        this.path.push(this.currentPos)
 
         this.allOptions = [
             { dx: 1, dy: 0 },
@@ -53,7 +56,12 @@ class Walker {
         if (x <= 0 || x >= this.maxWidth || y <= 0 || y >= this.maxHeight) {
             return false
         }
-        return this.canVisitMultipleTimes ? this.grid[x][y] : !this.grid[x][y].visited
+        if (!canGoOnLastPos) {
+            if (this.path[this.path.length - 2] && this.path[this.path.length - 2].x === x && this.path[this.path.length - 2].y === y) {
+                return false
+            }
+        }
+        return (this.canVisitMultipleTimes || !this.grid[x][y].visited) ? this.grid[x][y] : false
     }
 }
 

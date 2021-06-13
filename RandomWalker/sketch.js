@@ -6,6 +6,7 @@ const canvasHeight = 1000;
 const spacing = 20
 const isPoint = false
 const canVisitMultipleTimes = true
+const canGoOnLastPos = false
 
 const framePerSecond = 60;
 
@@ -17,7 +18,8 @@ function setup() {
     walker = new Walker({
         maxHeight: canvasHeight / spacing,
         maxWidth: canvasWidth / spacing,
-        canVisitMultipleTimes
+        canVisitMultipleTimes,
+        canGoOnLastPos
     })
     frameRate(framePerSecond);
 }
@@ -41,6 +43,8 @@ function draw() {
 
     if (isStuck) {
         console.log('this is the end')
+        stroke(255, 0, 0);
+        point(walker.currentPos.x * spacing, walker.currentPos.y * spacing)
         noLoop()
     }
 

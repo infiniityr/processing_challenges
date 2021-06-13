@@ -9,3 +9,4 @@ It is possible to set some variable in order to personnalize the Walker and the 
 - `spacing`: The spacing between each point.
 - `isPoint`: if True, points will be draw. Otherwise, lines are drawn.
 - `canVisitMultipleTimes`: if set to True, the walker can visite multiple times each point.
+- `canGoOnLastPos`: if set to True, the walker can go on his previous point. Useless if the `canVisitMultipleTimes` is set to True.
