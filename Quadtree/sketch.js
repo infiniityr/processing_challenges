@@ -9,7 +9,7 @@ function setup() {
     let boundary = new Boundary(400, 400, 400, 400);
     quadtree = new Quadtree(boundary, MAX_CAPACITY);
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 100000; i++) {
         let x = randomGaussian(width/2, height/8);
         let y = randomGaussian(height/2, width/8);
         quadtree.insert(new Point(x, y));
